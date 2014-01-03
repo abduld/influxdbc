@@ -7,27 +7,27 @@ import (
 	"net/http"
 )
 
-func (db InfluxDB) AddClusterAdmin(name, password string) error {
-	url := fmt.Sprintf("http://%s/cluster_admins?u=%s&p=%s", db.host, db.username, db.password)
+func (db InfluxDB) AddClusterAdmin(name, Password string) error {
+	url := fmt.Sprintf("http://%s/cluster_admins?u=%s&p=%s", db.Host, db.Username, db.Password)
 	reqMap := map[string]string{
-		"username": name,
-		"password": password,
+		"Username": name,
+		"Password": Password,
 	}
 	_, err := PostStruct(url, reqMap)
 	return err
 }
 
-func (db InfluxDB) UpdateClusterAdmin(name, password string) error {
-	url := fmt.Sprintf("http://%s/cluster_admins/%s?u=%s&p=%s", db.host, name, db.username, db.password)
+func (db InfluxDB) UpdateClusterAdmin(name, Password string) error {
+	url := fmt.Sprintf("http://%s/cluster_admins/%s?u=%s&p=%s", db.Host, name, db.Username, db.Password)
 	reqMap := map[string]string{
-		"password": password,
+		"Password": Password,
 	}
 	_, err := PostStruct(url, reqMap)
 	return err
 }
 
 func (db InfluxDB) DeleteClusterAdmin(name string) error {
-	url := fmt.Sprintf("http://%s/cluster_admins/%s?u=%s&p=%s", db.host, name, db.username, db.password)
+	url := fmt.Sprintf("http://%s/cluster_admins/%s?u=%s&p=%s", db.Host, name, db.Username, db.Password)
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return err
@@ -38,7 +38,7 @@ func (db InfluxDB) DeleteClusterAdmin(name string) error {
 }
 
 func (db InfluxDB) GetClusterAdmins() (map[string]string, error) {
-	url := fmt.Sprintf("http://%s/cluster_admins?u=%s&p=%s", db.host, db.username, db.password)
+	url := fmt.Sprintf("http://%s/cluster_admins?u=%s&p=%s", db.Host, db.Username, db.Password)
 	result, err := http.Get(url)
 	defer result.Body.Close()
 	if err != nil {

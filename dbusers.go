@@ -8,7 +8,7 @@ import (
 )
 
 func (db InfluxDB) GetDatabaseUsers() (map[string]string, error) {
-	url := fmt.Sprintf("http://%s/db/%s/users?u=%s&p=%s", db.host, db.database, db.username, db.password)
+	url := fmt.Sprintf("http://%s/db/%s/users?u=%s&p=%s", db.Host, db.Database, db.Username, db.Password)
 	result, err := http.Get(url)
 	defer result.Body.Close()
 	if err != nil {
@@ -21,11 +21,11 @@ func (db InfluxDB) GetDatabaseUsers() (map[string]string, error) {
 	return users, nil
 }
 
-func (db InfluxDB) AddDatabaseUser(name, password string) error {
-	url := fmt.Sprintf("http://%s/db/%s/users?u=%s&p=%s", db.host, db.database, db.username, db.password)
+func (db InfluxDB) AddDatabaseUser(name, Password string) error {
+	url := fmt.Sprintf("http://%s/db/%s/users?u=%s&p=%s", db.Host, db.Database, db.Username, db.Password)
 	userInfo := map[string]string{
 		"name":     name,
-		"password": password,
+		"Password": Password,
 	}
 	_, err := PostStruct(url, userInfo)
 	if err != nil {
@@ -35,7 +35,7 @@ func (db InfluxDB) AddDatabaseUser(name, password string) error {
 }
 
 func (db InfluxDB) DeleteDatabaseUser(name string) error {
-	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.host, db.database, name, db.username, db.password)
+	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.Host, db.Database, name, db.Username, db.Password)
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return err
@@ -45,17 +45,17 @@ func (db InfluxDB) DeleteDatabaseUser(name string) error {
 	return nil
 }
 
-func (db InfluxDB) UpdateDatabaseUserPassword(name, password string) error {
-	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.host, db.database, name, db.username, db.password)
+func (db InfluxDB) UpdateDatabaseUserPassword(name, Password string) error {
+	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.Host, db.Database, name, db.Username, db.Password)
 	reqMap := map[string]string{
-		"password": password,
+		"Password": Password,
 	}
 	_, err := PostStruct(url, reqMap)
 	return err
 }
 
 func (db InfluxDB) UpdateDatabaseUserPrivileges(name string, admin bool) error {
-	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.host, db.database, name, db.username, db.password)
+	url := fmt.Sprintf("http://%s/db/%s/users/%s?u=%s&p=%s", db.Host, db.Database, name, db.Username, db.Password)
 	reqMap := map[string]bool{
 		"admin": admin,
 	}

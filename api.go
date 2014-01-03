@@ -7,18 +7,18 @@ import "bytes"
 import "errors"
 
 type InfluxDB struct {
-	host     string
-	database string
-	username string
-	password string
+	Host     string
+	Database string
+	Username string
+	Password string
 }
 
 func (db InfluxDB) SeriesURL() string {
-	return fmt.Sprintf("http://%s/db/%s/series?u=%s&p=%s", db.host, db.database, db.username, db.password)
+	return fmt.Sprintf("http://%s/db/%s/series?u=%s&p=%s", db.Host, db.Database, db.Username, db.Password)
 }
 
 func (db InfluxDB) QueryURL(query, timePrecision string) string {
-	return fmt.Sprintf("http://%s/db/%s/series?u=%s&p=%s&q=query&time_precision=%s", db.host, db.database, db.username, db.password, query, timePrecision)
+	return fmt.Sprintf("http://%s/db/%s/series?u=%s&p=%s&q=query&time_precision=%s", db.Host, db.Database, db.Username, db.Password, query, timePrecision)
 }
 
 func (db InfluxDB) WriteSeries(s []Series) error {

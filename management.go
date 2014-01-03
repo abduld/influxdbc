@@ -11,13 +11,13 @@ type CreateDBReq struct {
 }
 
 func (db InfluxDB) CreateDatabase(repFactor int) {
-	url := fmt.Sprintf("http://%s/db?u=%s&p=%s", db.host, db.username, db.password)
-	reqStruct := CreateDBReq{db.database, repFactor}
+	url := fmt.Sprintf("http://%s/db?u=%s&p=%s", db.Host, db.Username, db.Password)
+	reqStruct := CreateDBReq{db.Database, repFactor}
 	PostStruct(url, reqStruct)
 }
 
-func (db InfluxDB) DeleteDatabase(database string) error {
-	url := fmt.Sprintf("http://%s/db/%s?u=%s&p=%s", db.host, db.database, db.username, db.password)
+func (db InfluxDB) DeleteDatabase(Database string) error {
+	url := fmt.Sprintf("http://%s/db/%s?u=%s&p=%s", db.Host, db.Database, db.Username, db.Password)
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return err
